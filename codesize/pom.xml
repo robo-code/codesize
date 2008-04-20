@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.sf.robocode</groupId>
+	<artifactId>codesize</artifactId>
+	<packaging>jar</packaging>
+	<version>1.6.2-SNAPSHOT</version>
+    <name>Robocode module codesize</name>
+    <organization>
+        <name>Robocode</name>
+        <url>http://robocode.sf.net</url>
+    </organization>
+    <url>http://robocode.sf.net</url>
+    <scm>
+        <connection>scm:svn:https://robocode.svn.sourceforge.net/svnroot/robocode/codesize/branches/maven-workspace/codesize</connection>
+    </scm>
+    <distributionManagement>
+        <downloadUrl>http://robocode.sourceforge.net/maven2-snapshot</downloadUrl>
+        <repository>
+            <id>net.sf.robocode</id>
+            <name>Robocode release repository</name>
+            <url>scp://shell.sf.net:22/home/groups/r/ro/robocode/htdocs/maven2</url>
+        </repository>
+        <snapshotRepository>
+            <id>net.sf.robocode</id>
+            <name>Robocode snapshot repository</name>
+            <url>scp://shell.sf.net:22/home/groups/r/ro/robocode/htdocs/maven2-snapshot</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>
