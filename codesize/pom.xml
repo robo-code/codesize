@@ -3,7 +3,7 @@
 	<groupId>net.sf.robocode</groupId>
 	<artifactId>codesize</artifactId>
 	<packaging>jar</packaging>
-	<version>1.6.2</version>
+	<version>1.1</version>
     <name>Robocode module codesize</name>
     <organization>
         <name>Robocode</name>
