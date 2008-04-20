@@ -3,7 +3,7 @@
 	<groupId>net.sf.robocode</groupId>
 	<artifactId>codesize</artifactId>
 	<packaging>jar</packaging>
-	<version>1.6.2-SNAPSHOT</version>
+	<version>1.6.2</version>
     <name>Robocode module codesize</name>
     <organization>
         <name>Robocode</name>
@@ -20,10 +20,25 @@
             <name>Robocode release repository</name>
             <url>scp://shell.sf.net:22/home/groups/r/ro/robocode/htdocs/maven2</url>
         </repository>
-        <snapshotRepository>
-            <id>net.sf.robocode</id>
-            <name>Robocode snapshot repository</name>
-            <url>scp://shell.sf.net:22/home/groups/r/ro/robocode/htdocs/maven2-snapshot</url>
-        </snapshotRepository>
     </distributionManagement>
+    <build>
+        <plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-idea-plugin</artifactId>
+				<configuration>
+					<jdkLevel>1.5</jdkLevel>
+					<jdkName>1.5</jdkName>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+        </plugins>
+    </build>
 </project>
