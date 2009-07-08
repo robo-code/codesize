@@ -27,10 +27,15 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
-                    <finalName>codesize</finalName>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addClasspath>true</addClasspath>                       
+                            <mainClass>codesize.Codesize</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
 			<plugin>
