@@ -45,6 +45,15 @@
             <url>scp://web.sourceforge.net:22/home/groups/r/ro/robocode/htdocs/maven2</url>
         </repository>
     </distributionManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.bcel</groupId>
+            <artifactId>bcel</artifactId>
+            <version>5.2</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
