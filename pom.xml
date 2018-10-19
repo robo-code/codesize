@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -12,14 +10,14 @@
     <groupId>net.sf.robocode</groupId>
     <artifactId>codesize</artifactId>
     <packaging>jar</packaging>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.2</version>
     <name>Codesize</name>
     <description>Codesize is a tool used for measuring the byte size of Robocode bots</description>
 
     <scm>
         <connection>scm:git:git://github.com/robo-code/codesize.git</connection>
         <developerConnection>scm:git:https://github.com/robo-code/codesize.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>codesize-1.2</tag>
     </scm>
 
     <developers>
