@@ -1,21 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2002, 2007 Christian D. Schnell, Flemming N. Larsen
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Common Public License v1.0
- * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/cpl-v10.html
- *
- * Contributors:
- *     Christian D. Schnell
- *     - Initial API and implementation
- *     Flemming N. Larsen
- *     - Changed to a dynamic buffer when processing .jar files based on the size
- *       of the .jar file
- *     - Added the getByteArrayOutputStream() as helper method
- *     - Extended the processZipFile(File, ZipInputStream) to take nested .jar
- *       files into account
- *     - Added Javadoc comments to all classes and methods
- *******************************************************************************/
 package codesize;
 
 import java.io.BufferedInputStream;
@@ -40,8 +22,9 @@ import org.apache.bcel.classfile.Method;
  * Codesize is a tool for calculating the code size of a Java class file or Java
  * archive (JAR).
  * 
- * @author Christian D. Schnell (original)
- * @author Flemming N. Larsen (contributor)
+ * @author Christian D. Schnell (original) - for Java 1.3
+ * @author Flemming N. Larsen (contributor) - Updated for Java 1.4, 5, 6, 7, 8 and 9
+ * @author Michael Jung - Release of version 1.1 to the Maven Repository
  */
 public class Codesize {
   private final static int DEFAULT_BUFFER_SIZE = 512 * 1024; // 512 KB
@@ -74,8 +57,6 @@ public class Codesize {
 
     /**
      * Returns the file location of the item.
-     * 
-     * @return a File containing the file location
      */
     public File getLocation() {
       return location;
@@ -83,8 +64,6 @@ public class Codesize {
 
     /**
      * Returns the number of found class files.
-     * 
-     * @return the number of found class files
      */
     public int getNClassFiles() {
       return nClassFiles;
@@ -92,8 +71,6 @@ public class Codesize {
 
     /**
      * Returns the total size of all found class files.
-     * 
-     * @return the total size of all found class files
      */
     public int getClassSize() {
       return ttlClassSize;
@@ -101,8 +78,6 @@ public class Codesize {
 
     /**
      * Returns the total code size of all found class files.
-     * 
-     * @return the total code size of all found class files
      */
     public int getCodeSize() {
       return ttlCodeSize;
@@ -110,10 +85,8 @@ public class Codesize {
 
     /**
      * Compares this item with another item based on their code sizes.
-     * 
      * @param item
      *          the item to be compared
-     * 
      * @return a negative integer, zero, or a positive integer as this item is
      *         less than, equal to, or greater than the specified item.
      */
@@ -124,14 +97,12 @@ public class Codesize {
 
   /**
    * Processes the arguments given from a command line.
-   * 
    * @param args
    *          the arguments given from the command line
-   * 
    * @return a list of retrived Codesize items
    */
   private static List processCmdLine(String args[]) {
-    ArrayList result = new ArrayList();
+    List result = new ArrayList();
 
     File file;
     Item item;
@@ -176,7 +147,6 @@ public class Codesize {
   /**
    * Adds all class files that exists under the specified directory and all it's
    * subdirectories to the specified list of class files.
-   * 
    * @param directory
    *          the directory containing the class files to add
    * @param result
@@ -198,11 +168,8 @@ public class Codesize {
 
   /**
    * Returns the filename of the specified file.
-   * 
    * @param file
    *          the file to extract the filename from
-   * 
-   * @return the filename of the specified file
    */
   private static String stripFilename(File file) {
     String result = file.toString();
@@ -220,8 +187,8 @@ public class Codesize {
     Package p = Codesize.class.getPackage();
 
     System.out.println(
-        p.getImplementationTitle() + " " + p.getImplementationVersion()
-            + " - http://user.cs.tu-berlin.de/~lulli/codesize/");
+        p.getImplementationTitle() + " version " + p.getImplementationVersion()
+            + " - https://github.com/robo-code/codesize");
     System.out.println("SYNTAX:");
     System.out.println();
     System.out.println("  codesize [-v] [<class-file> | <zip-file> | <directory> | -r <repository>]+");
@@ -239,15 +206,11 @@ public class Codesize {
 
   /**
    * Returns the code size of a class from an InputStream.
-   * 
    * @param inputStream
    *          the input stream of the class
    * @param filename
    *          the filename of the class
-   * 
-   * @return the code size of the class
-   * 
-   * @throws IOException
+   * @throws IOException when an I/O error occurs.
    */
   private static int processClassInputStream(InputStream inputStream, String filename) throws IOException {
     int result = 0;
@@ -272,13 +235,11 @@ public class Codesize {
 
   /**
    * Extracts code size information for a class file.
-   * 
    * @param classFile
    *          the filename of the class file
-   * 
    * @return the extracted Codesize information for the class file
    */
-  public static Item processClassFile(File classFile) {
+  private static Item processClassFile(File classFile) {
     try {
       InputStream inputStream = new BufferedInputStream(new FileInputStream(classFile));
 
@@ -297,10 +258,8 @@ public class Codesize {
 
   /**
    * Extracts code size information for a directory.
-   * 
    * @param directory
    *          the filename of the directory
-   * 
    * @return the extracted Codesize information about the directory
    */
   public static Item processDirectory(File directory) {
@@ -322,20 +281,16 @@ public class Codesize {
 
   /**
    * Extracts code size information for a zip file.
-   * 
    * @param zipFile
    *          the filename of the zip file
-   * 
    * @return the extracted Codesize information for the zip file
    */
   public static Item processZipFile(File zipFile) {
     if (verbose) {
       System.out.println("Processing zip file " + zipFile.getName());
     }
-
     try {
       ZipInputStream inputStream = new ZipInputStream(new BufferedInputStream(new FileInputStream(zipFile)));
-
       try {
         return processZipFile(zipFile, inputStream);
       } finally {
@@ -349,12 +304,10 @@ public class Codesize {
 
   /**
    * Extracts code size information for a zip file given a ZipInputStream.
-   * 
    * @param zipFile
    *          the filename of the zip file
    * @param inputStream
    *          the input stream of the zip file
-   * 
    * @return the extracted Codesize information for the zip file
    */
   public static Item processZipFile(File zipFile, ZipInputStream inputStream)
@@ -386,46 +339,39 @@ public class Codesize {
         }
       }
     }
-
     if (ttlCodeSize == 0) {
       throw new IOException("total code size is 0");
     }
-
     return new Item(zipFile, nClassFiles, ttlClassSize, ttlCodeSize);
   }
 
   /**
    * Reads all bytes from ZipInputStream and returns a ByteArrayOutputStream
    * containing all read bytes that can be read.
-   * 
    * @param zis
    *          the ZipInputStream to read from
    * @param length
    *          the length of the ZipInputStream, or -1 if the length is unknown
    * @return a ByteArrayOutputStream containing all bytes from the
    *         ZipInputStream
-   * @throws IOException
+   * @throws IOException when an I/O error occurs.
    */
   private static ByteArrayOutputStream getByteArrayOutputStream(ZipInputStream zis, int length) throws IOException {
     if (length < 0) {
       length = DEFAULT_BUFFER_SIZE;
     }
-
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     int nRead;
 
     byte buf[] = new byte[length];
-
     while ((nRead = zis.read(buf, 0, length)) > -1) {
       baos.write(buf, 0, nRead);
     }
-
     return baos;
   }
 
   /**
    * Dumps a list of Codesize items to the specified PrintStream.
-   * 
    * @param items
    *          the list of items to print out
    * @param target
@@ -447,13 +393,11 @@ public class Codesize {
 
   /**
    * The main entry for running the Codesize tool from the command line.
-   * 
    * @param args
    *          the arguments given from the command line
    */
   public static void main(String args[]) {
     List items = processCmdLine(args);
-
     if (items.size() == 0) {
       help();
     } else {
