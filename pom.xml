@@ -10,14 +10,14 @@
   <groupId>net.sf.robocode</groupId>
   <artifactId>codesize</artifactId>
   <packaging>jar</packaging>
-  <version>1.3-SNAPSHOT</version>
+  <version>1.2</version>
   <name>Codesize</name>
   <description>Codesize is a tool used for measuring the byte size of Robocode bots</description>
 
   <scm>
     <connection>scm:git:git://github.com/robo-code/codesize.git</connection>
     <developerConnection>scm:git:https://github.com/robo-code/codesize.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>codesize-1.2</tag>
   </scm>
 
   <developers>
