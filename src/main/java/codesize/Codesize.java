@@ -19,8 +19,7 @@ import org.apache.bcel.classfile.Code;
 import org.apache.bcel.classfile.Method;
 
 /**
- * Codesize is a tool for calculating the code size of a Java class file or Java
- * archive (JAR).
+ * Codesize is a tool for calculating the bytecode size of a Java class file, ZIP/JAR archive.
  * 
  * @author Christian D. Schnell (original) - for Java 1.3
  * @author Flemming N. Larsen (contributor) - Updated for Java 1.4, 5, 6, 7, 8 and 9

@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "net.sf.robocode"
-description = "Codesize is a tool to calculate the byte size of Java bytecode"
+description = "Codesize is a tool for calculating the bytecode size of a Java class file, ZIP/JAR archive"
 version = "1.3.0"
 
 val ossrhUsername: String by project
