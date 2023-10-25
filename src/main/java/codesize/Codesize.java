@@ -182,23 +182,26 @@ public class Codesize {
      */
     private static void help() {
         Package p = Codesize.class.getPackage();
+        String title = p.getImplementationTitle();
+        String version = p.getImplementationVersion();
 
-        System.out.println(
-                p.getImplementationTitle() + " version " + p.getImplementationVersion()
-                        + " - https://github.com/robo-code/codesize");
-        System.out.println("SYNTAX:");
-        System.out.println();
-        System.out.println("  codesize [-v] [<class-file> | <zip-file> | <directory> | -r <repository>]+");
-        System.out.println();
-        System.out.println("- <class-file> is a single .class file");
-        System.out.println("- <zip-file> is a zip compressed file (or a .jar file)");
-        System.out.println("- <directory> is treated like an uncompressed <zip-file>,");
-        System.out.println("  recursively processing any subdirectories");
-        System.out.println("- <repository> is a directory like '<robocode>/robots':");
-        System.out.println("  - any class file in it is treated like a <class-file>");
-        System.out.println("  - any zip file in it is treated like a <zip-file>");
-        System.out.println("  - any subdirectory is ignored (can't distinguish different robots here)");
-        System.out.println("- specify -v for verbose output");
+        String text = title +
+                " version " +
+                version +
+                " - https://github.com/robo-code/codesize\n" +
+                "SYNTAX:\n\n" +
+                "  codesize [-v] [<class-file> | <zip-file> | <directory> | -r <repository>]+\n\n" +
+                "- <class-file> is a single .class file\n" +
+                "- <zip-file> is a zip compressed file (or a .jar file)\n" +
+                "- <directory> is treated like an uncompressed <zip-file>,\n" +
+                "  recursively processing any subdirectories\n" +
+                "- <repository> is a directory like '<robocode>/robots':\n" +
+                "  - any class file in it is treated like a <class-file>\n" +
+                "  - any zip file in it is treated like a <zip-file>\n" +
+                "  - any subdirectory is ignored (can't distinguish different robots here)\n" +
+                "- specify -v for verbose output";
+
+        System.out.println(text);
     }
 
     /**
