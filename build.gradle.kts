@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.apache.bcel:bcel:6.2")
+    implementation("org.apache.bcel:bcel:6.7.0")
 }
 
 java {
@@ -103,7 +103,6 @@ publishing {
 signing {
     sign(publishing.publications["mavenJava"])
 }
-
 
 val initializeSonatypeStagingRepository by tasks.existing
 subprojects {
