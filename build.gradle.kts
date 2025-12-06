@@ -2,6 +2,7 @@ plugins {
     `java-library`
     idea
     `maven-publish`
+    signing // restored for OSSRH
     alias(libs.plugins.nexus.publish)
     alias(libs.plugins.ben.manes.versions)
 }
@@ -101,4 +102,13 @@ publishing {
             }
         }
     }
+}
+
+signing {
+    useInMemoryPgpKeys(
+        findProperty("signing.keyId") as String?,
+        findProperty("signingKey") as String?,
+        findProperty("signingPassword") as String?
+    )
+    sign(publishing.publications)
 }
