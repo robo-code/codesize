@@ -2,14 +2,13 @@ plugins {
     `java-library`
     idea
     `maven-publish`
-    signing
     alias(libs.plugins.nexus.publish)
     alias(libs.plugins.ben.manes.versions)
 }
 
 group = "net.sf.robocode"
 description = "Codesize is a tool for calculating the bytecode size of a Java class file, ZIP/JAR archive"
-version = "1.3.0"
+version = "1.3.1"
 
 val ossrhUsername: String by project
 val ossrhPassword: String by project
@@ -102,14 +101,4 @@ publishing {
             }
         }
     }
-}
-
-signing {
-    useGpgCmd()
-    sign(publishing.publications["mavenJava"])
-}
-
-val initializeSonatypeStagingRepository by tasks.existing
-initializeSonatypeStagingRepository {
-    shouldRunAfter(tasks.withType<Sign>())
 }
