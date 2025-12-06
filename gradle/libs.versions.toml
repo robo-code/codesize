@@ -1,0 +1,18 @@
+[versions]
+
+nexus-publish = "2.0.0"
+ben-manes-versions = "0.53.0"
+bcel = "6.11.0"
+
+[libraries]
+
+bcel = { module = "org.apache.bcel:bcel", version.ref = "bcel" }
+
+[bundles]
+
+[plugins]
+
+nexus-publish = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "nexus-publish" }
+
+# ./gradlew dependencyUpdates -Drevision=release
+ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "ben-manes-versions" }

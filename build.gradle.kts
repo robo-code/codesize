@@ -1,9 +1,10 @@
 plugins {
-    java
+    `java-library`
+    idea
     `maven-publish`
     signing
-    id("io.github.gradle-nexus.publish-plugin") version "1.0.0"
-    idea
+    alias(libs.plugins.nexus.publish)
+    alias(libs.plugins.ben.manes.versions)
 }
 
 group = "net.sf.robocode"
@@ -12,20 +13,22 @@ version = "1.3.0"
 
 val ossrhUsername: String by project
 val ossrhPassword: String by project
+val javaToolchains = extensions.getByType<JavaToolchainService>()
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation("org.apache.bcel:bcel:6.7.0")
+    implementation(libs.bcel)
 }
 
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(8))
     }
-
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
     withJavadocJar()
     withSourcesJar()
 }
@@ -50,8 +53,8 @@ tasks {
 nexusPublishing {
     repositories {
         sonatype {
-            nexusUrl.set(uri("https://oss.sonatype.org/service/local/"))//staging/deploy/maven2/
-            snapshotRepositoryUrl.set(uri("https://oss.sonatype.org/content/repositories/snapshots/"))
+            nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://central.sonatype.com/repository/maven-snapshots/"))
             stagingProfileId.set("c7f511545ccf8")
             username.set(ossrhUsername)
             password.set(ossrhPassword)
@@ -102,12 +105,11 @@ publishing {
 }
 
 signing {
+    useGpgCmd()
     sign(publishing.publications["mavenJava"])
 }
 
 val initializeSonatypeStagingRepository by tasks.existing
-subprojects {
-    initializeSonatypeStagingRepository {
-        shouldRunAfter(tasks.withType<Sign>())
-    }
+initializeSonatypeStagingRepository {
+    shouldRunAfter(tasks.withType<Sign>())
 }
